@@ -8,13 +8,17 @@ namespace VROOM.Converters
     {
         public override TimeSpan? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TryGetInt32(out int parsed))
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                return null;
+            }
+            else if(reader.TryGetInt32(out int parsed))
             {
                 return new TimeSpan(0, 0, parsed);
             }
             else
             {
-                return null;
+                throw new JsonException("Unsupported JSON type.");
             }
         }
 

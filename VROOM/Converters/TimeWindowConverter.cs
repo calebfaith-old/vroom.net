@@ -1,38 +1,37 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading;
 
 namespace VROOM.Converters
 {
-    public class CoordinateConverter : JsonConverter<Coordinate>
+    public class TimeWindowConverter : JsonConverter<TimeWindow>
     {
-        public override Coordinate Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override TimeWindow Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartArray)
             {
-                throw new JsonException("Failed converting coordinate.");
+                throw new JsonException("Failed converting TimeWindow.");
             }
 
             reader.Read();
-            double lon = reader.GetDouble();
+            long start = reader.GetInt64();
             reader.Read();
-            double lat = reader.GetDouble();
+            long end = reader.GetInt64();
 
             reader.Read();
             if (reader.TokenType != JsonTokenType.EndArray)
             {
-                throw new JsonException("Failed converting coordinate.");
+                throw new JsonException("Failed converting TimeWindow.");
             }
 
-            return new Coordinate(lon, lat);
+            return new TimeWindow(DateTimeOffset.FromUnixTimeSeconds(start), DateTimeOffset.FromUnixTimeSeconds(end));
         }
 
-        public override void Write(Utf8JsonWriter writer, Coordinate value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, TimeWindow value, JsonSerializerOptions options)
         {
             writer.WriteStartArray();
-            writer.WriteNumberValue(value.Longitude);
-            writer.WriteNumberValue(value.Latitude);
+            writer.WriteNumberValue(value.Start.ToUnixTimeSeconds());
+            writer.WriteNumberValue(value.End.ToUnixTimeSeconds());
             writer.WriteEndArray();
         }
     }

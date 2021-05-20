@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace VROOM
 {
-    public class Input
+    public class VroomInput
     {
         [JsonPropertyName("jobs")]
         public Job[] Jobs { get; set; }

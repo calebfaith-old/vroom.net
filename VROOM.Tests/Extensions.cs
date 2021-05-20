@@ -6,13 +6,13 @@ namespace VROOM
 {
     internal static class Extensions
     {
-        public static T? GetAttributeFromEnumValue<T>(this Enum enumValue)
+        public static T GetAttributeFromEnumValue<T>(this Enum enumValue)
             where T : Attribute
         {
             var type = enumValue.GetType();
             var memInfo = type.GetMember(enumValue.ToString());
             var attribute = memInfo.FirstOrDefault()?.GetCustomAttribute(typeof(T), false);
-            return (T?) attribute;
+            return (T) attribute;
         }
 
         public static DateTimeOffset ToSecondsAccuracy(this DateTimeOffset dateTimeOffset)

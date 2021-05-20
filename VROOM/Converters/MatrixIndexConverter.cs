@@ -5,34 +5,34 @@ using System.Threading;
 
 namespace VROOM.Converters
 {
-    public class CoordinateConverter : JsonConverter<Coordinate>
+    public class MatrixIndexConverter : JsonConverter<MatrixIndex>
     {
-        public override Coordinate Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override MatrixIndex Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartArray)
             {
-                throw new JsonException("Failed converting coordinate.");
+                throw new JsonException("Failed converting MatrixIndex.");
             }
 
             reader.Read();
-            double lon = reader.GetDouble();
+            int row = reader.GetInt32();
             reader.Read();
-            double lat = reader.GetDouble();
+            int col = reader.GetInt32();
 
             reader.Read();
             if (reader.TokenType != JsonTokenType.EndArray)
             {
-                throw new JsonException("Failed converting coordinate.");
+                throw new JsonException("Failed converting MatrixIndex.");
             }
 
-            return new Coordinate(lon, lat);
+            return new MatrixIndex(row, col);
         }
 
-        public override void Write(Utf8JsonWriter writer, Coordinate value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, MatrixIndex value, JsonSerializerOptions options)
         {
             writer.WriteStartArray();
-            writer.WriteNumberValue(value.Longitude);
-            writer.WriteNumberValue(value.Latitude);
+            writer.WriteNumberValue(value.Row);
+            writer.WriteNumberValue(value.Column);
             writer.WriteEndArray();
         }
     }

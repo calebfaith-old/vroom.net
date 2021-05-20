@@ -10,19 +10,19 @@ using VROOM.Converters;
 namespace VROOM.Tests
 {
     [TestClass]
-    public class TestMatrixIndexConverter
+    public class TestTimeSpanSecondsToIntConverter
     {
-        private static readonly MatrixIndex[] TestValues = new[]
+        private static readonly TimeSpan[] TestValues = new[]
         {
-            new MatrixIndex(0, 0),
-            new MatrixIndex(1, 100),
-            new MatrixIndex(1000, 1000000),
+            new TimeSpan(10, 10, 10),
+            new TimeSpan(0, 0, 10),
+            new TimeSpan(100, 100, 100),
         };
         
         [TestMethod]
         public void CanSerialize()
         {
-            MatrixIndexConverter converter = new MatrixIndexConverter();
+            TimeSpanSecondsToIntConverter converter = new TimeSpanSecondsToIntConverter();
 
             foreach (var value in TestValues)
             {
@@ -37,21 +37,21 @@ namespace VROOM.Tests
                 using TextReader reader = new StreamReader(stream);
                 string result = reader.ReadToEnd();
 
-                result.Should().Be($"[{value.Row},{value.Column}]");
+                result.Should().Be(((int)Math.Round(value.TotalSeconds)).ToString());
             }
         }
         
         [TestMethod]
         public void CanDeserialize()
         {
-            MatrixIndexConverter converter = new MatrixIndexConverter();
+            TimeSpanSecondsToIntConverter converter = new TimeSpanSecondsToIntConverter();
             foreach (var value in TestValues)
             {
-                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes($"[{value.Row},{value.Column}]"));
+                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(((int)Math.Round(value.TotalSeconds)).ToString()));
                 reader.Read();
-                var result = converter.Read(ref reader, typeof(MatrixIndex), new JsonSerializerOptions());
+                var result = converter.Read(ref reader, typeof(TimeSpan), new JsonSerializerOptions());
 
-                result.Should().BeEquivalentTo(value);
+                result.Should().Be(value);
             }
         }
     }

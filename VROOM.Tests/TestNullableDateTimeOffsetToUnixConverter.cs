@@ -10,19 +10,20 @@ using VROOM.Converters;
 namespace VROOM.Tests
 {
     [TestClass]
-    public class TestDateTimeOffsetToUnixConverter
+    public class TestNullableDateTimeOffsetToUnixConverter
     {
-        private static readonly DateTimeOffset[] TestValues = new[]
+        private static readonly DateTimeOffset?[] TestValues = new DateTimeOffset?[]
         {
             new DateTimeOffset(2020, 9, 11, 10, 1, 45, 0, new TimeSpan()),
             new DateTimeOffset(2020, 1, 1, 0, 0, 0, 0, new TimeSpan()),
             new DateTimeOffset(1980, 1, 11, 20, 59, 0, 0, new TimeSpan()),
+            null
         };
         
         [TestMethod]
         public void CanSerialize()
         {
-            DateTimeOffsetToUnixConverter converter = new DateTimeOffsetToUnixConverter();
+            NullableDateTimeOffsetToUnixConverter converter = new NullableDateTimeOffsetToUnixConverter();
 
             foreach (var value in TestValues)
             {
@@ -37,17 +38,17 @@ namespace VROOM.Tests
                 using TextReader reader = new StreamReader(stream);
                 string result = reader.ReadToEnd();
 
-                result.Should().Be(value.ToUnixTimeSeconds().ToString());
+                result.Should().Be(value?.ToUnixTimeSeconds().ToString() ?? "null");
             }
         }
         
         [TestMethod]
         public void CanDeserialize()
         {
-            DateTimeOffsetToUnixConverter converter = new DateTimeOffsetToUnixConverter();
+            NullableDateTimeOffsetToUnixConverter converter = new NullableDateTimeOffsetToUnixConverter();
             foreach (var value in TestValues)
             {
-                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(value.ToUnixTimeSeconds().ToString()));
+                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(value?.ToUnixTimeSeconds().ToString() ?? "null"));
                 reader.Read();
                 var result = converter.Read(ref reader, typeof(DateTimeOffset), new JsonSerializerOptions());
 

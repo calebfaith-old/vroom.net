@@ -10,19 +10,19 @@ using VROOM.Converters;
 namespace VROOM.Tests
 {
     [TestClass]
-    public class TestDateTimeOffsetToUnixConverter
+    public class TestMatrixIndexConverter
     {
-        private static readonly DateTimeOffset[] TestValues = new[]
+        private static readonly MatrixIndex[] TestValues = new[]
         {
-            new DateTimeOffset(2020, 9, 11, 10, 1, 45, 0, new TimeSpan()),
-            new DateTimeOffset(2020, 1, 1, 0, 0, 0, 0, new TimeSpan()),
-            new DateTimeOffset(1980, 1, 11, 20, 59, 0, 0, new TimeSpan()),
+            new MatrixIndex(0, 0),
+            new MatrixIndex(1, 100),
+            new MatrixIndex(1000, 1000000),
         };
         
         [TestMethod]
         public void CanSerialize()
         {
-            DateTimeOffsetToUnixConverter converter = new DateTimeOffsetToUnixConverter();
+            MatrixIndexConverter converter = new MatrixIndexConverter();
 
             foreach (var value in TestValues)
             {
@@ -37,21 +37,21 @@ namespace VROOM.Tests
                 using TextReader reader = new StreamReader(stream);
                 string result = reader.ReadToEnd();
 
-                result.Should().Be(value.ToUnixTimeSeconds().ToString());
+                result.Should().Be($"[{value.Row},{value.Column}]");
             }
         }
         
         [TestMethod]
         public void CanDeserialize()
         {
-            DateTimeOffsetToUnixConverter converter = new DateTimeOffsetToUnixConverter();
+            MatrixIndexConverter converter = new MatrixIndexConverter();
             foreach (var value in TestValues)
             {
-                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes(value.ToUnixTimeSeconds().ToString()));
+                Utf8JsonReader reader = new Utf8JsonReader(Encoding.UTF8.GetBytes($"[{value.Row},{value.Column}]"));
                 reader.Read();
-                var result = converter.Read(ref reader, typeof(Priority), new JsonSerializerOptions());
+                var result = converter.Read(ref reader, typeof(MatrixIndex), new JsonSerializerOptions());
 
-                result.Should().Be(value);
+                result.Should().BeEquivalentTo(value);
             }
         }
     }

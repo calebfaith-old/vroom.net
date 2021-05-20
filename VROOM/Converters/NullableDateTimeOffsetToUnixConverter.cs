@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 
 namespace VROOM.Converters
 {
@@ -8,13 +9,17 @@ namespace VROOM.Converters
     {
         public override DateTimeOffset? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if (reader.TryGetInt64(out long parsed))
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                return null;
+            }
+            else if(reader.TryGetInt64(out long parsed))
             {
                 return DateTimeOffset.FromUnixTimeSeconds(parsed);
             }
             else
             {
-                return null;
+                throw new JsonException("Unsupported JSON type.");
             }
         }
 

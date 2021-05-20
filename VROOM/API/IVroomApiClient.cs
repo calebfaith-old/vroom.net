@@ -5,7 +5,7 @@ namespace VROOM.API
 {
     public interface IVroomApiClient : IDisposable
     {
-        Task<Output> PerformRequest(Input input);
+        Task<VroomOutput> PerformRequest(VroomInput vroomInput);
         Task<bool> IsHealthy();
     }
 }
