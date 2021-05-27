@@ -7,7 +7,7 @@ It provides models and an API designed following standard C# coding conventions.
 # Usage
 
 1. Requires a reachable VROOM server. [vroom-docker](https://github.com/VROOM-Project/vroom-docker) is a good place to get started. No support will be provided relating to deploying a VROOM server, please raise issues relating to that on the [vroom-docker](https://github.com/VROOM-Project/vroom-docker) repo.
-2. Install via NuGet `VROOM.NET`.
+2. Install via NuGet [`VROOM.NET`](https://www.nuget.org/packages/VROOM.NET/1.0.0).
 3. Use the `VROOM.API.VroomApiClient` to make requests to a VROOM server.
 
 # Example
