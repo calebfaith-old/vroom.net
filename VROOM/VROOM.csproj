@@ -5,6 +5,15 @@
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Caleb Faith</Authors>
+        <PackageId>VROOM.NET</PackageId>
+        <Title>VROOM.NET</Title>
+        <Description>VROOM .NET is a simple API client for vroom-express https://github.com/VROOM-Project/vroom-express which covers 100% of the API.</Description>
+        <Copyright>Caleb Faith</Copyright>
+        <PackageProjectUrl>https://github.com/calebfaith/vroom.net</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/calebfaith/vroom.net/blob/master/License</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/calebfaith/vroom.net</RepositoryUrl>
+        <PackageTags>vroom, routing, logistics, directions, optimisation</PackageTags>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
 </Project>
