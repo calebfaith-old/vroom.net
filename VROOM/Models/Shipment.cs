@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace VROOM
 {
@@ -17,16 +18,16 @@ namespace VROOM
         public ShipmentStep Delivery { get; set; }
         
         /// <summary>
-        /// Array of ints describing multidimensional quantities for delivery.
+        /// List of ints describing multidimensional quantities for delivery.
         /// </summary>
         [JsonPropertyName("amount")]
-        public int[]? Amount { get; set; }
+        public List<int>? Amount { get; set; }
         
         /// <summary>
-        /// An array of ints defining mandatory skills.
+        /// A List of ints defining mandatory skills.
         /// </summary>
         [JsonPropertyName("skills")]
-        public int[]? Skills { get; set; }
+        public List<int>? Skills { get; set; }
         
         /// <summary>
         /// An integer in the [0, 100] range describing priority level.

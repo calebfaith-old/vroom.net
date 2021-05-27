@@ -11,7 +11,12 @@ namespace VROOM.API
     {
         private readonly string _host;
         private readonly HttpClient _client;
-
+        private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions()
+        {
+            IgnoreNullValues = true,
+            PropertyNameCaseInsensitive = true
+        };
+        
         public VroomApiClient(string host)
         {
             if (string.IsNullOrEmpty(host))
@@ -31,17 +36,20 @@ namespace VROOM.API
 
         public async Task<VroomOutput> PerformRequest(VroomInput vroomInput)
         {
+            string input = JsonSerializer.Serialize(vroomInput, _serializerOptions);
             var response = await _client.PostAsync(_host,
-                new StringContent(JsonSerializer.Serialize(vroomInput), Encoding.UTF8, "application/json"));
+                new StringContent(input, Encoding.UTF8, "application/json"));
 
+            string content = await response.Content.ReadAsStringAsync();
+            var output = JsonSerializer.Deserialize<VroomOutput>(content, _serializerOptions);
+            
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Server responded with status code {response.StatusCode}. Content: " +
-                                    await response.Content.ReadAsStringAsync());
+                                    JsonSerializer.Serialize(output, _serializerOptions));
             }
 
-            string content = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<VroomOutput>(content);
+            return output;
         }
 
         public async Task<bool> IsHealthy()

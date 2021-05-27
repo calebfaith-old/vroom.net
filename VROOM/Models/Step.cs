@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -41,10 +42,10 @@ namespace VROOM
         public TimeSpan WaitingTime { get; set; }
         
         /// <summary>
-        /// Array of violation objects for this step.
+        /// List of violation objects for this step.
         /// </summary>
         [JsonPropertyName("violations")]
-        public Violation[] Violations { get; set; }
+        public List<Violation>? Violations { get; set; }
         
         /// <summary>
         /// Step description, if provided in input.
@@ -69,12 +70,12 @@ namespace VROOM
         /// Vehicle load after step completion (with capacity constraints).
         /// </summary>
         [JsonPropertyName("load")]
-        public int[]? Load { get; set; }
+        public List<int>? Load { get; set; }
         
         /// <summary>
         /// Traveled distance upon arrival at this step. Provided when using the -g flag.
         /// </summary>
         [JsonPropertyName("distance")]
-        public int Distance { get; set; }
+        public int? Distance { get; set; }
     }
 }

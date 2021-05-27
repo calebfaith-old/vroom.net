@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -38,22 +39,22 @@ namespace VROOM
         public TimeSpan? Duration { get; set; }
         
         /// <summary>
-        /// Array of ints describing multidimensional quantities for delivery.
+        /// List of ints describing multidimensional quantities for delivery.
         /// </summary>
         [JsonPropertyName("delivery")]
-        public int[]? Delivery { get; set; }
+        public List<int>? Delivery { get; set; }
         
         /// <summary>
-        /// Array of ints describing multidimensional quantities for pickup.
+        /// List of ints describing multidimensional quantities for pickup.
         /// </summary>
         [JsonPropertyName("pickup")]
-        public int[]? Pickup { get; set; }
+        public List<int>? Pickup { get; set; }
         
         /// <summary>
-        /// Array of ints defining mandatory skills.
+        /// List of ints defining mandatory skills.
         /// </summary>
         [JsonPropertyName("skills")]
-        public int[]? Skills { get; set; }
+        public List<int>? Skills { get; set; }
         
         /// <summary>
         /// An integer in the [0, 100] range describing priority level.
@@ -62,9 +63,9 @@ namespace VROOM
         public Priority? Priority { get; set; }
         
         /// <summary>
-        /// Array of timewindows describing valid slots for job service start.
+        /// List of timewindows describing valid slots for job service start.
         /// </summary>
         [JsonPropertyName("time_windows")]
-        public TimeWindow[]? TimeWindows { get; set; }
+        public List<TimeWindow>? TimeWindows { get; set; }
     }
 }

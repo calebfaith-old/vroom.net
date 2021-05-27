@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -19,10 +20,10 @@ namespace VROOM
         public string? Description { get; set; }
 
         /// <summary>
-        /// An array of TimeWindows describing valid slots for break start.
+        /// A list of TimeWindows describing valid slots for break start.
         /// </summary>
         [JsonPropertyName("time_windows")]
-        public TimeWindow[]? TimeWindows { get; set; }
+        public List<TimeWindow>? TimeWindows { get; set; }
         
         /// <summary>
         /// The break duration (in VROOM this is "service").

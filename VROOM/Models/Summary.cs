@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -46,16 +47,16 @@ namespace VROOM
         public int Priority { get; set; }
         
         /// <summary>
-        /// Array of violation objects for all routes.
+        /// List of violation objects for all routes.
         /// </summary>
         [JsonPropertyName("violations")]
-        public Violation[] Violations { get; set; } = null!;
+        public List<Violation> Violations { get; set; } = null!;
         
         /// <summary>
         /// Total delivery for all routes.
         /// </summary>
         [JsonPropertyName("delivery")]
-        public int[]? Delivery { get; set; }
+        public List<int>? Delivery { get; set; }
         
         /// <summary>
         /// Total pickup for all routes.

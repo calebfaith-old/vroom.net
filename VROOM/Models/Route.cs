@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -13,10 +14,10 @@ namespace VROOM
         public uint VehicleId { get; set; }
 
         /// <summary>
-        /// Array of step objects.
+        /// List of step objects.
         /// </summary>
         [JsonPropertyName("steps")]
-        public Step[] Steps { get; set; }
+        public List<Step> Steps { get; set; }
 
         /// <summary>
         /// Cost for this route.
@@ -52,22 +53,22 @@ namespace VROOM
         public int Priority { get; set; }
 
         /// <summary>
-        /// Array of violation objects for this route.
+        /// List of violation objects for this route.
         /// </summary>
         [JsonPropertyName("violations")]
-        public Violation[] Violations { get; set; }
+        public List<Violation>? Violations { get; set; }
 
         /// <summary>
         /// Total delivery for tasks in this route.
         /// </summary>
         [JsonPropertyName("delivery")]
-        public int[]? Delivery { get; set; }
+        public List<int>? Delivery { get; set; }
 
         /// <summary>
         /// Total pickup for tasks in this route.
         /// </summary>
         [JsonPropertyName("pickup")]
-        public int[]? Pickup { get; set; }
+        public List<int>? Pickup { get; set; }
 
         /// <summary>
         /// Vehicle description, if provided in input.

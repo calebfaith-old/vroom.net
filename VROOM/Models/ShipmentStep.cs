@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using VROOM.Converters;
 
@@ -10,7 +11,7 @@ namespace VROOM
         /// The shipment step ID.
         /// </summary>
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
         
         /// <summary>
         /// A description of this shipment step.
@@ -38,9 +39,9 @@ namespace VROOM
         public TimeSpan? Service { get; set; }
         
         /// <summary>
-        /// Array of timewindows describing valid slots for job service start.
+        /// List of timewindows describing valid slots for job service start.
         /// </summary>
         [JsonPropertyName("time_windows")]
-        public TimeWindow[]? TimeWindows { get; set; }
+        public List<TimeWindow>? TimeWindows { get; set; }
     }
 }

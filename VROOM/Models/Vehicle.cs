@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace VROOM
 {
@@ -8,7 +9,7 @@ namespace VROOM
         /// Vehicle ID.
         /// </summary>
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         /// <summary>
         /// The routing profile to use. Defaults to car.
@@ -47,16 +48,16 @@ namespace VROOM
         public MatrixIndex? EndIndex { get; set; }
 
         /// <summary>
-        /// Array of integers describing multidimensional qualities.
+        /// List of integers describing multidimensional qualities.
         /// </summary>
         [JsonPropertyName("capacity")]
-        public int[]? Capacity { get; set; }
+        public List<int>? Capacity { get; set; }
 
         /// <summary>
-        /// Array of ints defining skills.
+        /// List of ints defining skills.
         /// </summary>
         [JsonPropertyName("skills")]
-        public int[]? Skills { get; set; }
+        public List<int>? Skills { get; set; }
 
         /// <summary>
         /// The possible working hours of the vehicle.
@@ -65,10 +66,10 @@ namespace VROOM
         public TimeWindow? TimeWindow { get; set; }
 
         /// <summary>
-        /// An array of break objects.
+        /// A list of break objects.
         /// </summary>
         [JsonPropertyName("breaks")]
-        public Break[]? Breaks { get; set; }
+        public List<Break>? Breaks { get; set; }
 
         /// <summary>
         /// A value used to scale all vehicle travel times.
@@ -78,9 +79,9 @@ namespace VROOM
         public double? SpeedFactor { get; set; }
 
         /// <summary>
-        /// An array of VehicleStep objects describing a custom route for this vehicle (only makes sense when using -c)
+        /// A list of VehicleStep objects describing a custom route for this vehicle (only makes sense when using -c)
         /// </summary>
         [JsonPropertyName("steps")]
-        public VehicleStep[]? Steps { get; set; }
+        public List<VehicleStep>? Steps { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using VROOM.Converters;
 
 namespace VROOM
 {
-    [JsonConverter(typeof(StringEnumConverter<OutputCode>))]
+    [JsonConverter(typeof(StringEnumConverter<ViolationCause>))]
     public enum ViolationCause : uint
     {
         Invalid = 0,
